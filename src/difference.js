@@ -120,7 +120,7 @@ function getUpdatedFeature(vtFeature, update, options) {
             type: 'Feature',
             id: vtFeature.id,
             geometry: update.newGeometry,
-            properties: applyPropertyUpdates(vtFeature.tags, update)
+            properties: changeProps ? applyPropertyUpdates(vtFeature.tags, update) : vtFeature.tags
         };
 
         // projects and adds simplification info
