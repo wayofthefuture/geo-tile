@@ -223,8 +223,8 @@ class GeoJSONVT {
             maxY = Math.max(maxY, feature.maxY);
         }
 
-        // clipping value used in splitTile above
-        const k1 = 0.5 * options.buffer / options.extent;
+        // tile buffer clipping value - not halved as in splitTile above because checking against tile's own extent
+        const k1 = options.buffer / options.extent;
 
         // track removed tile ids for o(1) lookup
         const removedLookup = new Set();

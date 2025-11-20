@@ -393,6 +393,42 @@ test('updateData: invalidates and regenerates tiles at multiple zoom levels', ()
     assert.equal(newZ7Tile.features[0].tags.name, 'Updated');
 });
 
+test('updateData: invalidates tiles when feature is within the buffer edge', () => {
+    const initialData = {
+        type: 'FeatureCollection',
+        features: [{
+            type: 'Feature',
+            id: 'feature1',
+            geometry: {
+                type: 'Point',
+                coordinates: [-45, 45] // inside tile 1-0-0
+            }
+        }]
+    };
+
+    const index = geojsonvt(initialData, {
+        updateable: true,
+        indexMaxZoom: 1,
+        indexMaxPoints: 0
+    });
+
+    const tileId = toID(1, 0, 0);
+    index.getTile(1, 0, 0);
+    assert.ok(index.tiles[tileId]);
+
+    const featureWithinBuffer = {
+        type: 'Feature',
+        id: 'buffer-feature',
+        geometry: {
+            type: 'Point',
+            coordinates: [2, 0] // feature within tile buffer edge
+        }
+    };
+
+    index.updateData({add: [featureWithinBuffer]});
+    assert.equal(index.tiles[tileId], undefined);
+});
+
 test('updateData: handles drill-down after update', () => {
     const initialData = {
         type: 'FeatureCollection',
