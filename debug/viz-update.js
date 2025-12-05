@@ -166,12 +166,12 @@ function updateRotatingRectangles() {
             add: rectangleFeatures
         });
     } else {
-        // Use new geojsonvt constructor (full rebuild)
+        // Use new geotile constructor (full rebuild)
         const allFeatures = {
             type: 'FeatureCollection',
             features: [...(originalData ? originalData.features : []), ...generatedFeatures, ...rectangleFeatures]
         };
-        tileIndex = geojsonvt(allFeatures, options); //eslint-disable-line
+        tileIndex = geotile(allFeatures, options); //eslint-disable-line
     }
 
     drawTile();
@@ -193,7 +193,7 @@ function startAnimation() {
     if (isAnimating) return;
 
     if (!tileIndex) {
-        tileIndex = geojsonvt({type: 'FeatureCollection', features: []}, options); //eslint-disable-line
+        tileIndex = geotile({type: 'FeatureCollection', features: []}, options); //eslint-disable-line
     }
 
     if (rotatingRectangles.length === 0) {
@@ -230,7 +230,7 @@ function generateRandomRectangles() {
     console.time('generate rectangles');
 
     if (!tileIndex) {
-        tileIndex = geojsonvt({type: 'FeatureCollection', features: []}, options); //eslint-disable-line
+        tileIndex = geotile({type: 'FeatureCollection', features: []}, options); //eslint-disable-line
     }
 
     const features = [];
@@ -284,7 +284,7 @@ function getRectangle(id, sizeMultiplier = 0.3) {
 
 function addRandomRectangle() {
     if (!tileIndex) {
-        tileIndex = geojsonvt({type: 'FeatureCollection', features: []}, options); //eslint-disable-line
+        tileIndex = geotile({type: 'FeatureCollection', features: []}, options); //eslint-disable-line
     }
 
     const newRect = {
@@ -384,7 +384,7 @@ canvas.ondrop = function (e) {
         }
 
         originalData = data;
-        tileIndex = geojsonvt(data, options); //eslint-disable-line
+        tileIndex = geotile(data, options); //eslint-disable-line
 
         drawTile();
     };

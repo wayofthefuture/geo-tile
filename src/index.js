@@ -20,7 +20,7 @@ const defaultOptions = {
     debug: 0                // logging level (0, 1 or 2)
 };
 
-class GeoJSONVT {
+class GeoTile {
     constructor(data, options) {
         options = this.options = extend(Object.create(defaultOptions), options);
 
@@ -330,5 +330,5 @@ function extend(dest, src) {
 }
 
 export default function geotile(data, options) {
-    return new GeoJSONVT(data, options);
+    return new GeoTile(data, options);
 }

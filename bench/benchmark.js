@@ -1,5 +1,5 @@
 import Benchmark from 'benchmark';
-import geojsonvt from '../src/index.js';
+import geotile from '../src/index.js';
 
 function generateRectangle(id, centerX, centerY, width, height) {
     const corners = [
@@ -90,7 +90,7 @@ testConfigs.forEach((config) => {
     const tileX = Math.floor(Math.pow(2, config.z) / 2);
     const tileY = Math.floor(Math.pow(2, config.z) / 2);
 
-    let reusableIndex = geojsonvt(initialData, optionsUpdate);
+    let reusableIndex = geotile(initialData, optionsUpdate);
 
     console.log(`\n${config.initial.toLocaleString()} Initial, ${config.changing.toLocaleString()} changing, getTile z=${config.z}:`);
 
@@ -98,7 +98,7 @@ testConfigs.forEach((config) => {
 
     suite
         .add('constructor', () => {
-            const index = geojsonvt(updatedData, optionsConstructor);
+            const index = geotile(updatedData, optionsConstructor);
             index.getTile(config.z, tileX, tileY);
         })
         .add('updateData', () => {
@@ -109,7 +109,7 @@ testConfigs.forEach((config) => {
             reusableIndex.getTile(config.z, tileX, tileY);
         }, {
             onCycle: () => {
-                reusableIndex = geojsonvt(initialData, optionsUpdate);
+                reusableIndex = geotile(initialData, optionsUpdate);
             }
         })
         .on('cycle', (event) => {

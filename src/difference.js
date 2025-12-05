@@ -26,7 +26,7 @@ import wrap from './wrap.js';       // date line processing
 
 /* eslint @stylistic/comma-spacing: 0, no-shadow: 0 */
 
-// applies a diff to the geojsonvt source simplified features array
+// applies a diff to the geotile source simplified features array
 // returns an object with the affected features and new source array for invalidation
 export function applySourceDiff(source, dataDiff, options) {
 
@@ -87,7 +87,7 @@ export function applySourceDiff(source, dataDiff, options) {
 
             const feature = source[featureIndex];
 
-            // get updated geojsonvt simplified feature
+            // get updated geotile simplified feature
             const updatedFeature = getUpdatedFeature(feature, update, options);
             if (!updatedFeature) continue;
 
@@ -102,7 +102,7 @@ export function applySourceDiff(source, dataDiff, options) {
     return {affected, source};
 }
 
-// return an updated geojsonvt simplified feature
+// return an updated geotile simplified feature
 function getUpdatedFeature(vtFeature, update, options) {
     const changeGeometry = !!update.newGeometry;
 

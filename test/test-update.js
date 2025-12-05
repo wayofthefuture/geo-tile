@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import geojsonvt from '../src/index.js';
+import geotile from '../src/index.js';
 
 test('updateData: requires updateable option', () => {
-    const index = geojsonvt({
+    const index = geotile({
         type: 'FeatureCollection',
         features: []
     });
@@ -26,7 +26,7 @@ test('updateData: adds new features', () => {
         ]
     };
 
-    const index = geojsonvt(initialData, {updateable: true});
+    const index = geotile(initialData, {updateable: true});
 
     const newFeature = {
         type: 'Feature',
@@ -60,7 +60,7 @@ test('updateData: removes features by id', () => {
         ]
     };
 
-    const index = geojsonvt(initialData, {updateable: true});
+    const index = geotile(initialData, {updateable: true});
 
     index.updateData({remove: ['feature1']});
 
@@ -81,7 +81,7 @@ test('updateData: replaces features with duplicate ids', () => {
         ]
     };
 
-    const index = geojsonvt(initialData, {updateable: true});
+    const index = geotile(initialData, {updateable: true});
 
     const updatedFeature = {
         type: 'Feature',
@@ -117,7 +117,7 @@ test('updateData: handles both add and remove in same call', () => {
         ]
     };
 
-    const index = geojsonvt(initialData, {updateable: true});
+    const index = geotile(initialData, {updateable: true});
 
     const newFeature = {
         type: 'Feature',
@@ -139,7 +139,7 @@ test('updateData: handles both add and remove in same call', () => {
 });
 
 test('updateData: works with empty diff', () => {
-    const index = geojsonvt({
+    const index = geotile({
         type: 'FeatureCollection',
         features: []
     }, {updateable: true});
@@ -166,7 +166,7 @@ test('updateData: invalidates tiles at deeper zoom', () => {
         }]
     };
 
-    const index = geojsonvt(initialData, {
+    const index = geotile(initialData, {
         updateable: true,
         indexMaxZoom: 5,
         indexMaxPoints: 0
@@ -215,7 +215,7 @@ test('updateData: invalidates tiles with partial intersection', () => {
         ]
     };
 
-    const index = geojsonvt(initialData, {
+    const index = geotile(initialData, {
         updateable: true,
         indexMaxZoom: 2,
         indexMaxPoints: 0
@@ -252,7 +252,7 @@ test('updateData: invalidates empty tiles', () => {
         ]
     };
 
-    const index = geojsonvt(initialData, {
+    const index = geotile(initialData, {
         updateable: true,
         indexMaxZoom: 1,
         indexMaxPoints: 0,
@@ -296,7 +296,7 @@ test('updateData: does not invalidate unaffected tiles', () => {
         ]
     };
 
-    const index = geojsonvt(initialData, {
+    const index = geotile(initialData, {
         updateable: true,
         indexMaxZoom: 2,
         indexMaxPoints: 0
@@ -351,7 +351,7 @@ test('updateData: invalidates and regenerates tiles at multiple zoom levels', ()
         ]
     };
 
-    const index = geojsonvt(initialData, {
+    const index = geotile(initialData, {
         updateable: true,
         indexMaxZoom: 7,
         indexMaxPoints: 0
@@ -406,7 +406,7 @@ test('updateData: invalidates tiles when feature is within the buffer edge', () 
         }]
     };
 
-    const index = geojsonvt(initialData, {
+    const index = geotile(initialData, {
         updateable: true,
         indexMaxZoom: 1,
         indexMaxPoints: 0
@@ -444,7 +444,7 @@ test('updateData: handles drill-down after update', () => {
         ]
     };
 
-    const index = geojsonvt(initialData, {
+    const index = geotile(initialData, {
         updateable: true,
         indexMaxZoom: 5
     });
