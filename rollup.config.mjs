@@ -3,7 +3,7 @@ import terser from '@rollup/plugin-terser';
 const config = (file, plugins) => ({
     input: 'src/index.js',
     output: {
-        name: 'geojsonvt',
+        name: 'geotile',
         format: 'umd',
         indent: false,
         file
@@ -12,6 +12,6 @@ const config = (file, plugins) => ({
 });
 
 export default [
-    config('geojson-vt-dev.js', []),
-    config('geojson-vt.js', [terser()])
+    config('geo-tile-dev.js', []),
+    config('geo-tile.js', [terser()])
 ];

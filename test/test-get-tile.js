@@ -3,7 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'fs';
 
-import geojsonvt from '../src/index.js';
+import geotile from '../src/index.js';
 
 const square = [{
     geometry: [[[-64, 4160], [-64, -64], [4160, -64], [4160, 4160], [-64, 4160]]],
@@ -16,7 +16,7 @@ test('getTile: us-states.json', () => {
     const log = console.log;
 
     console.log = function () {};
-    const index = geojsonvt(getJSON('us-states.json'), {debug: 2});
+    const index = geotile(getJSON('us-states.json'), {debug: 2});
 
     assert.deepEqual(index.getTile(7, 37, 48).features, getJSON('us-states-z7-37-48.json'), 'z7-37-48');
     assert.deepEqual(index.getTile('7', '37', '48').features, getJSON('us-states-z7-37-48.json'), 'z, x, y as strings');
@@ -33,7 +33,7 @@ test('getTile: us-states.json', () => {
 });
 
 test('getTile: unbuffered tile left/right edges', () => {
-    const index = geojsonvt({
+    const index = geotile({
         type: 'LineString',
         coordinates: [[0, 90], [0, -90]]
     }, {
@@ -45,7 +45,7 @@ test('getTile: unbuffered tile left/right edges', () => {
 });
 
 test('getTile: unbuffered tile top/bottom edges', () => {
-    const index = geojsonvt({
+    const index = geotile({
         type: 'LineString',
         coordinates: [[-90, 66.51326044311188], [90, 66.51326044311188]]
     }, {
@@ -57,7 +57,7 @@ test('getTile: unbuffered tile top/bottom edges', () => {
 });
 
 test('getTile: polygon clipping on the boundary', () => {
-    const index = geojsonvt({
+    const index = geotile({
         type: 'Polygon',
         coordinates: [[
             [42.1875, 57.32652122521708],

@@ -208,6 +208,6 @@ function extend(dest, src) {
     return dest;
 }
 
-export default function geojsonvt(data, options) {
+export default function geotile(data, options) {
     return new GeoJSONVT(data, options);
 }

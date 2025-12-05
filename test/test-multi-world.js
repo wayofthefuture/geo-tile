@@ -2,7 +2,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import geojsonvt from '../src/index.js';
+import geotile from '../src/index.js';
 
 const leftPoint = {
     type: 'Feature',
@@ -23,19 +23,19 @@ const rightPoint = {
 };
 
 test('handle point only in the rightside world', () => {
-    const vt = geojsonvt(rightPoint);
+    const vt = geotile(rightPoint);
     assert.equal(vt.tiles[0].features[0].geometry[0], 1);
     assert.equal(vt.tiles[0].features[0].geometry[1], .5);
 });
 
 test('handle point only in the leftside world', () => {
-    const vt = geojsonvt(leftPoint);
+    const vt = geotile(leftPoint);
     assert.equal(vt.tiles[0].features[0].geometry[0], 0);
     assert.equal(vt.tiles[0].features[0].geometry[1], .5);
 });
 
 test('handle points in the leftside world and the rightside world', () => {
-    const vt = geojsonvt({
+    const vt = geotile({
         type: 'FeatureCollection',
         features: [leftPoint, rightPoint]
     });
