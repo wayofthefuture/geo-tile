@@ -1,5 +1,5 @@
 {
-  "name": "geo-tile",
+  "name": "@wayofthefuture/geo-tile",
   "version": "4.0.3",
   "description": "Slice GeoJSON data into vector tiles efficiently",
   "type": "module",
